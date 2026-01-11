@@ -80,9 +80,9 @@ class LoopScript():
                         raise LoopScriptError("Missing variable or invalid variable name")
                     
                     partindex = parens.pop()
-                    program.append(LoopToken(op, partindex, variable))
+                    program.append(LoopToken(op, partindex, int(variable)))
                     program[partindex].part = len(program) - 1
-                    program[partindex].var = variable
+                    program[partindex].var = int(variable)
 
         
             variable = ""
@@ -129,7 +129,6 @@ class LoopScript():
                 tkn = cmd.part
                 continue
         
-            print(tkn)
             tkn += 1
 
 # Main
@@ -143,7 +142,6 @@ if __name__ == "__main__":
         try:
             ls = LoopScript()
             tokens = ls.parse(code)
-            print(tokens)
             ls.execute(tokens)
         except LoopScriptError as e:
             print(f"Error: {e.problem}")
