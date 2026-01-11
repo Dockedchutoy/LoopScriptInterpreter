@@ -91,8 +91,7 @@ class LoopScript():
             raise LoopScriptError("Loop not properly enclosed")
         
         program.append(Token("EOF", -1))
-        
-        print(program)
+
         return program
     
     # Execution
@@ -125,9 +124,12 @@ class LoopScript():
             elif cmd.op == "(": # Loop start
                 if env[cmd.var] == 0:
                     tkn = cmd.part
-                else:
-                    
+            
+            elif cmd.op == ")": # Loop end
+                tkn = cmd.part
+                continue
         
+            print(tkn)
             tkn += 1
 
 # Main
@@ -141,6 +143,7 @@ if __name__ == "__main__":
         try:
             ls = LoopScript()
             tokens = ls.parse(code)
+            print(tokens)
             ls.execute(tokens)
         except LoopScriptError as e:
             print(f"Error: {e.problem}")
