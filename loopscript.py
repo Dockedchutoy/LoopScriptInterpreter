@@ -25,7 +25,7 @@ class Token():
         return f"Token[{self.op} >> {self.var}]"
 
 class LoopToken():
-    def __init__(self, op: str, part: int, var: int):
+    def __init__(self, op: str, part: int | None, var: int | None):
         self.op = op
         self.part = part  # part is the partner parenthesis index
         self.var = var
@@ -52,7 +52,7 @@ class LoopScript():
 
         while char < len(source):
             match source[char]:
-                case "+" | "-" | "%" | "$":
+                case "+" | "-" | "%" | "$" | "?":
                     op = source[char]
                     # Find variable
                     char += 1
@@ -128,6 +128,9 @@ class LoopScript():
             elif cmd.op == ")": # Loop end
                 tkn = cmd.part
                 continue
+                
+            elif cmd.op == "?": # Random
+                env[cmd.var] = randint(1, cmd.var)
         
             tkn += 1
 
@@ -142,6 +145,7 @@ if __name__ == "__main__":
         try:
             ls = LoopScript()
             tokens = ls.parse(code)
+            print(tokens)
             ls.execute(tokens)
         except LoopScriptError as e:
             print(f"Error: {e.problem}")
