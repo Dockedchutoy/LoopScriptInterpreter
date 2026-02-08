@@ -84,6 +84,9 @@ class LoopScript():
                     program.append(LoopToken(op, partindex, int(variable)))
                     program[partindex].part = len(program) - 1
                     program[partindex].var = int(variable)
+                
+                case _:
+                    char += 1
 
         
             variable = ""
