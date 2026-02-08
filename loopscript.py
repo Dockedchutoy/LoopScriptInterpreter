@@ -12,6 +12,7 @@ $n => output variable n, depending on value
 (commands)n => Loop commands while n is not 0
 ?n => save random integer from {1,2,...,n} to variable n
 """
+import sys
 from random import randint
 
 # Objects for interpreter
@@ -134,18 +135,29 @@ class LoopScript():
         
             tkn += 1
 
+def run():
+    try:
+        ls = LoopScript()
+        tokens = ls.parse(code)
+        ls.execute(tokens)
+    except LoopScriptError as e:
+        print(f"Error: {e.problem}")
+
 # Main
 
 if __name__ == "__main__":
-    running = True
-
-    print("LoopScript Python Interpreter v1.0")
-    while running:
-        code = input(" >>")
+    if len(sys.argv) > 1:
         try:
-            ls = LoopScript()
-            tokens = ls.parse(code)
-            print(tokens)
-            ls.execute(tokens)
-        except LoopScriptError as e:
-            print(f"Error: {e.problem}")
+            with open(sys.argv[1]) as f:
+                code = f.read()
+            run()
+        except FileNotFoundError:
+            print("Error: Couldn't find file.")
+
+    else:
+        running = True
+
+        print("LoopScript Python Interpreter v1.0")
+        while running:
+            code = input(" >>")
+            run()
