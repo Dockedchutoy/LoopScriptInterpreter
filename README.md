@@ -11,6 +11,6 @@ LoopScript on Esolangs Wiki: https://esolangs.org/wiki/LoopScript
 
 # License
 
-The interpreter itself is licensed under the MIT License (see LICENSE.md)
+The interpreter itself is licensed under the MIT License (see LICENSE)
 
 The provided sample files (located in the "samples\" folder) use code from the Esolangs page for LoopScript, and thus fall under Public Domain.
